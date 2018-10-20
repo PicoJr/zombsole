@@ -7,7 +7,7 @@ class Troll(Player):
 
        (trolls have regenerative capabilities, hence the name).
     """
-    def next_step(self, things, t):
+    def next_step(self, things, data):
         self.status = u'healing myself'
         return 'heal', self
 

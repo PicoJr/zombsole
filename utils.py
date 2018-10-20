@@ -1,5 +1,6 @@
 # coding: utf-8
 import math
+import networkx as nx
 
 
 def to_position(something):
@@ -18,6 +19,10 @@ def distance(a, b):
     dx = abs(x1 - x2)
     dy = abs(y1 - y2)
     return math.sqrt((dx ** 2) + (dy ** 2))
+
+def manhattan(a, b):
+    """Calculates manhattan distance between two positions"""
+    return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
 
 def sort_by_distance(something, others):
@@ -50,3 +55,16 @@ def possible_moves(something, things):
                  if things.get(position) is None]
 
     return positions
+
+def astar_path(source, target, size, obstacles=[]):
+    """Computes A* algorithm on weighted graph"""
+    if source == target:
+        return target
+    m, n = size
+    G = nx.grid_2d_graph(m+1, n+1)
+    for obs, cost in obstacles:
+        for obstacle in obs:
+            for neighbor_position in G[obstacle.position]:
+                G[obstacle.position][neighbor_position]['weight'] = cost
+    path = nx.astar_path(G, source, target, manhattan)
+    return path[1]

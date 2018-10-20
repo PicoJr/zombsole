@@ -6,7 +6,7 @@ from weapons import Shotgun
 
 class Terminator(Player):
     """A player that stays still and shoots zombies."""
-    def next_step(self, things, t):
+    def next_step(self, things, data):
         zombies = [thing for thing in things.values()
                    if isinstance(thing, Zombie)]
 
