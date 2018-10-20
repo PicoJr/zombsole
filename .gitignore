@@ -1,2 +1,8 @@
 *.py[co]
 *.swp
+# virtualenv
+bin/
+include/
+lib/
+share/
+pip-selfcheck.json
