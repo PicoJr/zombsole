@@ -18,6 +18,7 @@ There are three different game types:
 * **Safe House**: all players must travel and get inside a single safe house. At 
   least 1 player must reach it, but to win, all the living players must be 
   inside.
+* **Survival**: at least 1 player must remain after 200 turns.
 
 And the best of all: is really **simple**.
 
@@ -76,7 +77,7 @@ It should inherit ``things.Player``, and implement a single instance method call
 
     class Terminator(Player):
         '''Liquid metal, invincible.'''
-        def next_step(self, things, t):
+        def next_step(self, things, data):
             return 'heal', self
 
 
@@ -101,8 +102,9 @@ Example of ``things`` you can receive:
         (51, 40): <you (self)>,
     }
 
-The method also receives ``t``, which is an integer representing the "instant" of time, 
-in case you want to use that information.
+The method also receives ``data``, a dictionary containing:
+* ``t`` which is an integer representing the "instant" of time, in case you want to use that information.
+* ``size`` the map size (useful for A* algorithm)
 
 And as you can see, the result of ``next_step`` must be a tuple. This tuple has two parts:
 the first one is the action to do, and the second one is the "target" for the action.
@@ -181,7 +183,7 @@ You update your status doing something like this:
 
     class Terminator(Player):
         '''Liquid metal, invincible.'''
-        def next_step(self, things, t):
+        def next_step(self, things, data):
             self.status = u'Healing myself, because I am invincible'
             return 'heal', self
 
@@ -191,7 +193,7 @@ And you can see other player statuses with something like this:
 
     class Terminator(Player):
         '''Liquid metal, invincible.'''
-        def next_step(self, things, t):
+        def next_step(self, things, data):
             other_players = [thing for thing in things.values()
                              if isinstance(thing, Player)]
             for player in other_players:
@@ -248,3 +250,10 @@ these characters to draw objects and important locations:
 +--------+--------------------------------------------------------------------------------------+
 | o      | an objective location (for safehouse games, be sure to add as many as player spawns) |
 +--------+--------------------------------------------------------------------------------------+
+
+This Fork
+=========
+
+* **survival** rule
+* `A* pathfinding algorithm <https://en.wikipedia.org/wiki/A*_search_algorithm>`_ using `networkx <https://github.com/networkx/networkx>`_
+* **John** cooperative AI with A* pathfinding
