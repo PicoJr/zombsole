@@ -64,7 +64,8 @@ def astar_path(source, target, size, obstacles=[]):
     G = nx.grid_2d_graph(m+1, n+1)
     for obs, cost in obstacles:
         for obstacle in obs:
-            for neighbor_position in G[obstacle.position]:
-                G[obstacle.position][neighbor_position]['weight'] = cost
+            if 0 <= obstacle.position[0] < m and 0 <= obstacle.position[1] < n:
+                for neighbor_position in G[obstacle.position]:
+                    G[obstacle.position][neighbor_position]['weight'] = cost
     path = nx.astar_path(G, source, target, manhattan)
     return path[1]
