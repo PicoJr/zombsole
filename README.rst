@@ -9,18 +9,8 @@ to survive and fight against hordes of zombies.
 The game is **cooperative**: the idea is to find some friends, each one program a 
 different bot, and then put the bots to work together against the zombies.
 
-There are three different game types:
 
-* **Extermination**: you must kill all zombies, and at least 1 player must survive.
-* **Evacuation**: all players start far away from each other, and must get together
-  to be evacuated at any place by an helicopter. At least half of the team must
-  survive.
-* **Safe House**: all players must travel and get inside a single safe house. At 
-  least 1 player must reach it, but to win, all the living players must be 
-  inside.
-* **Survival**: at least 1 player must remain after 200 turns.
-
-And the best of all: is really **simple**.
+And the best of all: it is really **simple**.
 
 Getting started
 ===============
@@ -207,53 +197,7 @@ to see some inspirational examples, the ``players`` folder already has some simp
 player that can be controlled in real time by a human using the keyboard! (but still, Randoman is the 
 best).
 
-Breaking the game
-=================
+Wiki
+----
 
-In a normal game play, your player instance has references to all the other things in the world.
-This leaves a **giant** backdoor to hack, that allows you to do stuff like this:
-
-* Put every ``zombie.life`` to 0, effectively killing all zombies with just your thought.
-* Add 300 clones of you to the map (maybe you were some kind of replicant).
-* Replace every zombie's ``next_step`` function with a custom made, and make them obey you.
-* Increase your weapon range and damage.
-* Teleport to any locations.
-* etc..
-
-If you want a real survival challenge, just don't modify anything in ``things``, and don't modify
-your ``self.life`` or ``self.position`` (neither your weapon properties).
-
-If you like a mind control challenge, use all that and create an army of coordinated zombies that
-write your player's name in the map by moving boxes.
-
-**Either way, the point is to have fun programming :)**
-
-And finally, the game features an advanced isolation mechanism based on `Docker <http://docker.io>`_,
-which you could use to effectively forbade any of those hacks in the scenario of some public competence
-or if you are running "untrusted" code. This isn't documented yet, but it's functional and quite
-simple. I promise to add docs in a few days.
-
-Creating maps
-=============
-
-This is super easy: create a text file under the ``maps`` folder (name without spaces), and use 
-these characters to draw objects and important locations:
-
-+--------+--------------------------------------------------------------------------------------+
-| ▓ or w | a wall                                                                               |
-+--------+--------------------------------------------------------------------------------------+
-| ☒ or b | a box                                                                                |
-+--------+--------------------------------------------------------------------------------------+
-| p      | a player spawn point (be sure to add at least 10)                                    |
-+--------+--------------------------------------------------------------------------------------+
-| z      | a zombie spawn point (be sure to add **many more**)                                  |
-+--------+--------------------------------------------------------------------------------------+
-| o      | an objective location (for safehouse games, be sure to add as many as player spawns) |
-+--------+--------------------------------------------------------------------------------------+
-
-This Fork
-=========
-
-* **survival** rule
-* `A* pathfinding algorithm <https://en.wikipedia.org/wiki/A*_search_algorithm>`_ using `networkx <https://github.com/networkx/networkx>`_
-* **John** cooperative AI with A* pathfinding
+For more information please check out the `wiki <https://github.com/PicoJr/zombsole/wiki>`_
