@@ -4,7 +4,7 @@ import random
 import core
 from things import Player, Zombie, Wall, Box
 from utils import closest, distance, adjacent_positions, astar_path
-from weapons import Gun
+from weapons import Gun, Rifle, Shotgun
 
 
 class John(Player):
@@ -39,7 +39,10 @@ class John(Player):
         action, target = self.self_preservation()
         if action and target:
             return action, target
-        if self.objectives and data['t'] % 2 == 0:
+        action, target = self.help_critical_teammates(things, players)
+        if action and target:
+            return action, target
+        if self.objectives and data['t'] % 4 == 0:
             action, target = self.reach_objective(things, zombies, players, walls, boxes, data)
             return action, target
         if zombies:
@@ -61,11 +64,11 @@ class John(Player):
                 return action, target
 
     def self_preservation(self):
-        if self.life < 20:
+        if self.life < 40:
             self.status = u'critical'
-        elif self.life < 50:
+        elif self.life < 80:
             self.status = u'need_support'
-        if self.life < 50:
+        if self.life < 80:
             return 'heal', self
         return None, None
 
@@ -130,5 +133,5 @@ class John(Player):
 
 
 def create(rules, objectives=None):
-    return John('john', 'white', weapon=Gun(), rules=rules,
+    return John('john', 'white', weapon=Shotgun(), rules=rules,
                   objectives=objectives)
