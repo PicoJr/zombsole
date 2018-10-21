@@ -133,5 +133,8 @@ class John(Player):
 
 
 def create(rules, objectives=None):
-    return John('john', 'white', weapon=Shotgun(), rules=rules,
+    w = Shotgun()
+    if rules == 'extermination':
+        w = Rifle()
+    return John('john', 'white', weapon=w, rules=rules,
                   objectives=objectives)
