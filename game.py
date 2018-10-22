@@ -124,9 +124,9 @@ class Game(object):
         self.players = []
 
         self.rules_name = rules_name
-        self.rules = get_creator('rules.' + rules_name)(self)
         self.map = map_
         self.minimum_zombies = minimum_zombies
+        self.rules = get_creator('rules.' + rules_name)(self)
         self.docker_isolator = docker_isolator
         self.isolator_port = isolator_port
         self.debug = debug
