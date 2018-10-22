@@ -16,6 +16,8 @@ class John(Player):
             return self.safehouse_ai(things, data)
         elif self.rules == 'evacuation':
             return self.evacuation_ai(things, data)
+        elif self.rules == 'delivery':
+            return self.safehouse_ai(things, data)
         return 'heal', self
 
     def extermination_ai(self, things, data):
