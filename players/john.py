@@ -92,8 +92,10 @@ class John(Player):
 
     def track_zombies(self, things, zombies, players, walls, boxes, data):
         closest_zombie = closest(self, zombies)
-        self.status = u'tracking zombies'
-        return self.go_to(closest_zombie.position, things, zombies, players, walls, boxes, data)
+        if closest_zombie:
+            self.status = u'tracking zombies'
+            return self.go_to(closest_zombie.position, things, zombies, players, walls, boxes, data)
+        return None, None
 
     def regroup(self, things, zombies, players, walls, boxes, data):
         x, y = self.position[0], self.position[1]
