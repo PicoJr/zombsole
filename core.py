@@ -143,6 +143,8 @@ class World(object):
             event = u'hit %s with his head' % obstacle.name
         elif distance(thing.position, destination) > 1:
             event = u'tried to walk too fast, but physics forbade it'
+        elif not(0 <= destination[0] <= self.size[0] and 0 <= destination[1] <= self.size[1]):
+            event = u'tried to move out of map bounds'
         else:
             # we store position in the things, because they need to know it,
             # but also in our dict, for faster access
