@@ -32,7 +32,10 @@ class John(Player):
             action, target = self.shoot_zombies(zombies)
             if action and target:
                 return action, target
-        action, target = self.regroup(things, zombies, players, walls, boxes, data)
+        if len(zombies) > 10:
+            action, target = self.regroup(things, zombies, players, walls, boxes, data)
+        else:
+            action, target = self.track_zombies(things, zombies, players, walls, boxes, data)
         if action and target:
             return action, target
 
@@ -86,6 +89,11 @@ class John(Player):
             elif isinstance(thing, Box):
                 boxes.append(thing)
         return zombies, players, walls, boxes
+
+    def track_zombies(self, things, zombies, players, walls, boxes, data):
+        closest_zombie = closest(self, zombies)
+        self.status = u'tracking zombies'
+        return self.go_to(closest_zombie.position, things, zombies, players, walls, boxes, data)
 
     def regroup(self, things, zombies, players, walls, boxes, data):
         x, y = self.position[0], self.position[1]
